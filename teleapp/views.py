@@ -84,6 +84,8 @@ class MyConatactListAPIView(generics.ListCreateAPIView):
 
 class ReportSpamAPIView(generics.CreateAPIView):
     serializer_class = GlobalNumbersSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         phone_number = request.data.get('phone_number')
@@ -107,3 +109,5 @@ class ReportSpamAPIView(generics.CreateAPIView):
 class GetAllSpamNumbersAPIView(generics.ListAPIView):
     queryset = GlobalNumbers.objects.filter(is_spam=True)
     serializer_class = GlobalNumbersSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
